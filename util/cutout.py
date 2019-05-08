@@ -23,6 +23,7 @@ class Cutout(object):
         h = img.size(1)
         w = img.size(2)
 
+        # TODO(ruthfong): Convert to torch code.
         mask = np.ones((h, w), np.float32)
 
         for n in range(self.n_holes):
