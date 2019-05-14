@@ -1,3 +1,5 @@
+import random
+
 import torch
 import numpy as np
 
@@ -8,10 +10,12 @@ class Cutout(object):
     Args:
         n_holes (int): Number of patches to cut out of each image.
         length (int): The length (in pixels) of each square patch.
+        orig_prob (float): Probability to the original image is preserved.
     """
-    def __init__(self, n_holes, length):
+    def __init__(self, n_holes, length, orig_prob=0.0):
         self.n_holes = n_holes
         self.length = length
+        self.orig_prob = orig_prob
 
     def __call__(self, img):
         """
@@ -20,6 +24,10 @@ class Cutout(object):
         Returns:
             Tensor: Image with n_holes of dimension length x length cut out of it.
         """
+        # Show the original image with probability p = self.orig_prob.
+        if self.orig_prob < random.random():
+            return img
+
         h = img.size(1)
         w = img.size(2)
 
