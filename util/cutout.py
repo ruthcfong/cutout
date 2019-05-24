@@ -25,7 +25,7 @@ class Cutout(object):
             Tensor: Image with n_holes of dimension length x length cut out of it.
         """
         # Show the original image with probability p = self.orig_prob.
-        if self.orig_prob < random.random():
+        if self.orig_prob >= random.random():
             return img
 
         h = img.size(1)
